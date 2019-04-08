@@ -26,10 +26,17 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  bool _showSecondaryBottomBar = false;
 
   void _incrementCounter() {
     setState(() {
       _counter++;
+    });
+  }
+
+  void _showhideBottomBar() {
+    setState(() {
+      _showSecondaryBottomBar = _showSecondaryBottomBar ? false :  true;
     });
   }
 
@@ -39,24 +46,95 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+      body: _showSecondaryBottomBar
+          ? imageeditor()
+          : Container(
+              child: Text("Hello"),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
-      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _showhideBottomBar,
         tooltip: 'Increment',
         child: Icon(Icons.add),
+      ),
+      bottomNavigationBar: mainbottombar(),
+    );
+  }
+}
+
+class imageeditor extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container(
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          secondarybottombar(),
+          secondarybottombar(),
+        ],
+        // children: <Widget>[
+        //   Column(
+
+        //     mainAxisSize: MainAxisSize.max,
+        //     mainAxisAlignment: MainAxisAlignment.end,
+        //   ),
+        //   secondarybottombar(),
+        //
+      ),
+    );
+  }
+}
+
+class mainbottombar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return BottomAppBar(
+      child: new Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          IconButton(
+            icon: Icon(Icons.edit_attributes),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(Icons.crop),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(Icons.straighten),
+            onPressed: () {},
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class secondarybottombar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return BottomAppBar(
+      child: new Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          IconButton(
+            icon: Icon(Icons.rotate_left),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(Icons.add_photo_alternate),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(Icons.photo),
+            onPressed: () {},
+          ),
+        ],
       ),
     );
   }
